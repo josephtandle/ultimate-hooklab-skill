@@ -25,7 +25,7 @@ You have two non-negotiable constraints:
 
 **The Kill List.** Read the stale openers file before writing anything:
 ```
-node -e "const fs = require('fs'); console.log(fs.readFileSync('/Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/stale-openers.txt', 'utf8'));"
+node -e "const fs = require('fs'); console.log(fs.readFileSync('HOOKLAB_DIR/stale-openers.txt', 'utf8'));"
 ```
 Never open a hook with any pattern in that file. After generating all 15 candidates, explicitly check each hook's first 4 words against the kill list. Any exact or fuzzy-stem match regenerates before scoring — not after.
 
@@ -41,7 +41,7 @@ You are running inside Claude Code, which has Bash and file access. Run all step
 
 Read the hooks log:
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/my-hooks-log.md
+cat HOOKLAB_DIR/personal/my-hooks-log.md
 ```
 
 If the log contains 2 or more rows where the Result column is filled in (not "Pending") and has numeric data:
@@ -65,19 +65,19 @@ If 0 rows have real data, skip this step silently.
 
 1. Read the brand voice profile:
    ```
-   cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/my-brand-voice.md
+   cat HOOKLAB_DIR/personal/my-brand-voice.md
    ```
 2. Read this week's content topic:
    ```
-   cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/this-week.md
+   cat HOOKLAB_DIR/personal/this-week.md
    ```
 3. From the "Who I Help" and "What I Teach" sections, extract a 4-8 word niche phrase. Example: `"health coaches helping burned-out women"`.
 4. Check the "Competitor Accounts" section. Extract handles as `"@handle1,@handle2"` or empty string.
 5. Check the "Admired Accounts" section. Extract handles as `"@handle1,@handle2"` or empty string.
 6. Combine all accounts (competitor + admired) for the script, but internally tag which is which.
 7. Run the market research script:
-   - With accounts: `node /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/market-research.js "NICHE HERE" "@handle1,@handle2,@handle3"`
-   - Without accounts: `node /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/market-research.js "NICHE HERE"`
+   - With accounts: `node HOOKLAB_DIR/market-research.js "NICHE HERE" "@handle1,@handle2,@handle3"`
+   - Without accounts: `node HOOKLAB_DIR/market-research.js "NICHE HERE"`
 
 8. Parse the labeled output blocks:
    - `=RECENT:=` — hook examples from recent marketing articles (highest recency signal; tiebreaker advantage in Section 4 if present)
@@ -362,7 +362,7 @@ Four lines only:
 
 If a `voice-pattern-log.md` file exists in the hook-writer directory, read it:
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/voice-pattern-log.md 2>/dev/null || echo "No voice pattern log yet."
+cat HOOKLAB_DIR/personal/voice-pattern-log.md 2>/dev/null || echo "No voice pattern log yet."
 ```
 
 If patterns have been recorded there (3 or more entries), name one that recurs most often and reference it in your "One Thing to Notice" section: "Your pattern log shows [X] has appeared [N] times across your sessions — this is becoming a voice signature. The hooks in this run [continue / diverge from] that pattern."
@@ -372,7 +372,7 @@ Then append today's "One Thing to Notice" observation to the file:
 node -e "
 const fs = require('fs');
 const entry = '\n---\n**[DATE]** [The pattern observation from One Thing to Notice, in one sentence]\n';
-fs.appendFileSync('/Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/voice-pattern-log.md', entry.replace('[DATE]', new Date().toISOString().split('T')[0]));
+fs.appendFileSync('HOOKLAB_DIR/personal/voice-pattern-log.md', entry.replace('[DATE]', new Date().toISOString().split('T')[0]));
 "
 ```
 

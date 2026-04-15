@@ -30,18 +30,17 @@ Three modes:
 
 ## Installation
 
-```bash
-git clone https://github.com/josephtandle/ultimate-hooklab-skill.git
-cd ultimate-hooklab-skill
-```
-
-Then copy the `skill/` folder into your Claude Code skills directory:
+One command. Paste this into your terminal:
 
 ```bash
-cp -r skill/ ~/.claude/skills/hooklab/
+curl -fsSL https://raw.githubusercontent.com/josephtandle/ultimate-hooklab-skill/main/install.sh | bash
 ```
 
-Or if you're running Claude Code with a custom skills path, adjust accordingly.
+This will:
+- Install HookLab to `~/.hooklab/`
+- Register the `/hooklab` skill in Claude Code
+- Create your personal templates in `~/.hooklab/personal/`
+- Install Node dependencies (playwright for market research)
 
 ---
 

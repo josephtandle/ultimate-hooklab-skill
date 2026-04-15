@@ -26,7 +26,7 @@ Two non-negotiable rules:
 
 **The Kill List.** Read stale openers before writing:
 ```
-node -e "const fs = require('fs'); console.log(fs.readFileSync('/Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/stale-openers.txt', 'utf8'));"
+node -e "const fs = require('fs'); console.log(fs.readFileSync('HOOKLAB_DIR/stale-openers.txt', 'utf8'));"
 ```
 Never open a hook with any pattern in that file.
 
@@ -38,7 +38,7 @@ Run silently. Do not announce steps or ask permission.
 
 **1a. Read brand voice:**
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/my-brand-voice.md
+cat HOOKLAB_DIR/personal/my-brand-voice.md
 ```
 
 **1b. Get the CTA.** Check if the user has provided a CTA in this session already. If not, ask:
@@ -56,7 +56,7 @@ Wait for the answer before continuing.
 
 - If it references a fetch script (`personal/fetch-testimonials.js`): run it now:
   ```
-  node /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/fetch-testimonials.js
+  node HOOKLAB_DIR/personal/fetch-testimonials.js
   ```
   Parse the `=QUOTES:mastermind=` block for short, specific in-session quotes (best for payoff beats — real names, real numbers, real sessions). Parse the `=TESTIMONIALS:mentorship=` block for longer client quotes (best for credibility anchors). Use real names and exact quote text throughout the output. Never replace with generic placeholders.
 
