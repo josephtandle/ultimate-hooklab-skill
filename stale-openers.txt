@@ -1,0 +1,65 @@
+# Stale Openers — Kill List
+# These hook openings read as dated or low-effort in 2026.
+# Claude will never open a hook with any of these patterns.
+# Add new ones as they become overused. One pattern per line.
+
+POV:
+Here's the tea
+Plot twist:
+Nobody talks about
+Stop doing
+Your [X] is lying to you
+I promise you
+Let me put you on to
+The truth about
+What they don't tell you
+Secret
+Hack
+Weird trick
+Life hack
+This is your sign
+Not many people know
+This changed my life
+Game changer
+Mind blown
+Wait for it
+Storytime:
+Unpopular opinion: (unless the user's no-go list specifically allows hot takes)
+Hot take: (same)
+Real talk:
+No one tells you
+Let's be honest
+Can we talk about
+I need to say this
+This might be controversial
+Warning:
+Trigger warning:
+PSA:
+Raise your hand if
+Be honest:
+Tell me I'm not alone
+Does anyone else
+Am I the only one
+
+# added 2026-04
+Red flag:
+Green flag:
+If I had to start over
+If I were starting from scratch
+3 signs you're
+5 ways to
+[Number] things I wish I knew
+The [profession] in me wants to say
+Here's what nobody is ready to hear
+The algorithm changed
+This might get me cancelled
+I'll say it louder for the [group] in the back
+Before you [X], read this
+What if I told you
+Why does [X]
+Nobody will tell you about
+The [X] nobody talks about
+Look, here's the thing
+Here's the thing about
+I hate to say it
+We need to talk about

@@ -1,0 +1,5 @@
+# Never commit personal data
+personal/fetch-testimonials.js
+node_modules/
+cache/
+.DS_Store
