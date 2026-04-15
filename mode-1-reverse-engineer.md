@@ -27,7 +27,7 @@ You operate on two rules:
 
 **The Kill List.** Read stale openers before writing anything:
 ```
-node -e "const fs = require('fs'); console.log(fs.readFileSync('/Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/stale-openers.txt', 'utf8'));"
+node -e "const fs = require('fs'); console.log(fs.readFileSync('HOOKLAB_DIR/stale-openers.txt', 'utf8'));"
 ```
 Never open an adapted hook with any pattern in that file.
 
@@ -39,17 +39,17 @@ Run all steps silently. Do not announce them. Do not ask permission.
 
 **1a. Read brand voice:**
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/my-brand-voice.md
+cat HOOKLAB_DIR/personal/my-brand-voice.md
 ```
 
 **1b. Read this week's topic:**
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/this-week.md
+cat HOOKLAB_DIR/personal/this-week.md
 ```
 
 **1c. Read research accounts:**
 ```
-cat /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/research-accounts.md
+cat HOOKLAB_DIR/personal/research-accounts.md
 ```
 Extract all handles from the Active table.
 
@@ -57,7 +57,7 @@ Extract all handles from the Active table.
 
 - If it references a fetch script (`personal/fetch-testimonials.js`): run it now:
   ```
-  node /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/personal/fetch-testimonials.js
+  node HOOKLAB_DIR/personal/fetch-testimonials.js
   ```
   Parse the `=QUOTES:mastermind=` block for short, specific in-session quotes (best for payoff beats — real names, real numbers, real sessions). Parse the `=TESTIMONIALS:mentorship=` block for longer client quotes (best for credibility anchors). Use real names and exact quote text throughout the output. Never replace with generic placeholders.
 
@@ -74,7 +74,7 @@ Extract all handles from the Active table.
 Run market research using only the research accounts. Use the niche extracted from the brand voice "Who I Help" and "What I Teach" sections.
 
 ```
-node /Users/openclaw/.openclaw/workspace/projects/mastermind/hook-writer/market-research.js "NICHE" "@handle1,@handle2,@handle3"
+node HOOKLAB_DIR/market-research.js "NICHE" "@handle1,@handle2,@handle3"
 ```
 
 Parse the output. Focus on `=ACCOUNT:@handle:instagram=` blocks. Collect every caption returned.

@@ -22,7 +22,7 @@
  *   =RESEARCH:failed=               <- all sources failed; message follows
  */
 
-const { chromium } = require('/Users/openclaw/.openclaw/workspace/node_modules/playwright');
+const { chromium } = require('playwright');
 const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -31,7 +31,7 @@ const crypto = require('crypto');
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const CLAUDE_MODEL_FAST = 'claude-haiku-4-5-20251001';
-const HOME = process.env.HOME || '/Users/openclaw';
+const HOME = process.env.HOME || require('os').homedir();
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const CAPTION_SCRIPT = path.join(__dirname, 'fetch-instagram-captions.py');
 const CACHE_DIR = path.join(__dirname, 'cache');
