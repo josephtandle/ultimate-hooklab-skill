@@ -37,6 +37,8 @@ cp "$SRC/mode-1-reverse-engineer.md"      "$HOOKLAB_DIR/"
 cp "$SRC/mode-2-cta-first.md"             "$HOOKLAB_DIR/"
 cp "$SRC/stale-openers.txt"               "$HOOKLAB_DIR/"
 cp "$SRC/market-research.js"              "$HOOKLAB_DIR/"
+cp "$SRC/fetch-instagram-captions.py"     "$HOOKLAB_DIR/"
+chmod +x "$HOOKLAB_DIR/fetch-instagram-captions.py" 2>/dev/null || true
 
 # Personal templates — only if they don't already exist (never overwrite)
 for f in my-brand-voice.md this-week.md my-hooks-log.md research-accounts.md; do
@@ -81,6 +83,15 @@ JSON
   npm install playwright --save --quiet > /dev/null 2>&1 || true
   npx playwright install chromium --quiet > /dev/null 2>&1 || true
   cd - > /dev/null
+fi
+
+# ── 6. Install Python dependency for Instagram caption fetcher ───────────────
+
+if command -v python3 &>/dev/null; then
+  if ! python3 -c "import instaloader" 2>/dev/null; then
+    python3 -m pip install --user --quiet instaloader > /dev/null 2>&1 || \
+      pip3 install --user --quiet instaloader > /dev/null 2>&1 || true
+  fi
 fi
 
 # ── Done ─────────────────────────────────────────────────────────────────────
