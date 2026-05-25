@@ -64,8 +64,19 @@ sed -i.bak "s|HOOKLAB_DIR|$HOOKLAB_DIR|g" "$SKILL_DIR/SKILL.md" && rm "$SKILL_DI
 
 if command -v npm &>/dev/null; then
   cd "$HOOKLAB_DIR"
+  # npm init -y derives the package name from the cwd basename, and ".hooklab"
+  # is rejected as invalid (names can't start with a dot). Write package.json
+  # directly instead so the install survives under "set -e".
   if [ ! -f "package.json" ]; then
-    npm init -y --quiet > /dev/null 2>&1
+    cat > package.json <<'JSON'
+{
+  "name": "hooklab-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local dependencies for the Ultimate HookLab skill.",
+  "license": "MIT"
+}
+JSON
   fi
   npm install playwright --save --quiet > /dev/null 2>&1 || true
   npx playwright install chromium --quiet > /dev/null 2>&1 || true

@@ -368,6 +368,12 @@ function fetchInstagramCaptions(handle) {
     return cached.length > 0 ? { source: 'instagram', hooks: cached, status: 'ok' } : null;
   }
 
+  // The python caption fetcher is optional and not bundled with the public repo.
+  // Without it, skip silently and let the YouTube / Wezual / DuckDuckGo paths run.
+  if (!fs.existsSync(CAPTION_SCRIPT)) {
+    return null;
+  }
+
   const result = spawnSync('python3', [CAPTION_SCRIPT, handle, '18'], {
     encoding: 'utf8',
     timeout: 25000,
