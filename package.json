@@ -1,0 +1,10 @@
+{
+  "name": "ultimate-hooklab-skill",
+  "version": "1.0.0",
+  "description": "Generate Instagram Reel hooks from your brand voice.",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "scripts": {
+    "selftest": "bash -n install.sh && node --check market-research.js && python3 -m py_compile fetch-instagram-captions.py && HOOKLAB_SYNC_ONLY=1 bash install.sh"
+  }
+}

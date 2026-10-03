@@ -100,3 +100,14 @@ Mastermind HQ: [mastermindshq.business](https://mastermindshq.business)
 ## Licence
 
 All Sorted Personal Use License: use it for yourself, never sell or redistribute it. See LICENSE.
+
+## Updates
+
+This updates itself every week from this repo. Before it changes anything it backs up your own files, and if the self-test fails after an update it rolls back to the version you had. Your own files (config, notes, brand files, data) are never overwritten.
+
+```
+node scripts/self-update.js --status   # see the setting and the last check
+node scripts/self-update.js --now      # check and update right now
+node scripts/self-update.js --off      # turn weekly updates off
+node scripts/self-update.js --on       # turn them back on
+```

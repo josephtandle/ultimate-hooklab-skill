@@ -8,6 +8,11 @@ HOOKLAB_DIR="$HOME/.hooklab"
 SKILL_DIR="$HOME/.claude/skills/hooklab"
 REPO="https://github.com/josephtandle/ultimate-hooklab-skill"
 BRANCH="main"
+# The repo is kept as a clone in ~/.hooklab/repo so it can update itself weekly.
+# HOOKLAB_SYNC_ONLY=1 (used by the weekly self-test) re-copies the files from
+# that clone and skips dependencies and scheduling.
+CLONE_DIR="$HOOKLAB_DIR/repo"
+SYNC_ONLY="${HOOKLAB_SYNC_ONLY:-0}"
 
 echo ""
 echo "Installing Ultimate HookLab Skill..."
@@ -15,17 +20,22 @@ echo ""
 
 # ── 1. Download repo ──────────────────────────────────────────────────────────
 
-TMP_DIR=$(mktemp -d)
-trap "rm -rf $TMP_DIR" EXIT
-
-if command -v git &>/dev/null; then
-  git clone --depth 1 --branch "$BRANCH" "$REPO" "$TMP_DIR/hooklab" --quiet
+if [ "$SYNC_ONLY" = "1" ]; then
+  SRC="$(cd "$(dirname "$0")" && pwd)"
 else
-  echo "Error: git is required. Install it from https://git-scm.com and try again."
-  exit 1
+  if ! command -v git &>/dev/null; then
+    echo "Error: git is required. Install it from https://git-scm.com and try again."
+    exit 1
+  fi
+  mkdir -p "$HOOKLAB_DIR"
+  if [ -d "$CLONE_DIR/.git" ]; then
+    git -C "$CLONE_DIR" pull --ff-only --quiet || echo "Could not update the existing copy; using what is there."
+  else
+    rm -rf "$CLONE_DIR"
+    git clone --depth 1 --branch "$BRANCH" "$REPO" "$CLONE_DIR" --quiet
+  fi
+  SRC="$CLONE_DIR"
 fi
-
-SRC="$TMP_DIR/hooklab"
 
 # ── 2. Install files to ~/.hooklab ───────────────────────────────────────────
 
@@ -64,7 +74,7 @@ sed -i.bak "s|HOOKLAB_DIR|$HOOKLAB_DIR|g" "$SKILL_DIR/SKILL.md" && rm "$SKILL_DI
 
 # ── 5. Install Node dependencies ─────────────────────────────────────────────
 
-if command -v npm &>/dev/null; then
+if [ "$SYNC_ONLY" != "1" ] && command -v npm &>/dev/null; then
   cd "$HOOKLAB_DIR"
   # npm init -y derives the package name from the cwd basename, and ".hooklab"
   # is rejected as invalid (names can't start with a dot). Write package.json
@@ -87,7 +97,7 @@ fi
 
 # ── 6. Install Python dependency for Instagram caption fetcher ───────────────
 
-if command -v python3 &>/dev/null; then
+if [ "$SYNC_ONLY" != "1" ] && command -v python3 &>/dev/null; then
   if ! python3 -c "import instaloader" 2>/dev/null; then
     python3 -m pip install --user --quiet instaloader > /dev/null 2>&1 || \
       pip3 install --user --quiet instaloader > /dev/null 2>&1 || true
@@ -96,6 +106,11 @@ fi
 
 # ── Done ─────────────────────────────────────────────────────────────────────
 
+if [ "$SYNC_ONLY" = "1" ]; then
+  echo "HookLab files refreshed in $HOOKLAB_DIR"
+  exit 0
+fi
+
 echo "Done. HookLab installed to $HOOKLAB_DIR"
 echo ""
 echo "Next steps:"
@@ -103,3 +118,14 @@ echo "  1. Fill in $HOOKLAB_DIR/personal/my-brand-voice.md"
 echo "  2. Add research accounts to $HOOKLAB_DIR/personal/research-accounts.md"
 echo "  3. Open Claude Code and type /hooklab"
 echo ""
+
+# Weekly self-update: on by default, one line turns it off. It fast-forwards
+# the clone in ~/.hooklab/repo from its origin, re-copies the HookLab files
+# (your files in personal/ are never overwritten), backs up first and rolls
+# back if the self-test fails.
+echo ""
+if [ "${HOOKLAB_SKIP_UPDATES:-0}" = "1" ]; then
+  echo "Weekly updates not scheduled (HOOKLAB_SKIP_UPDATES=1). Later: node \"$CLONE_DIR/scripts/self-update.js\" --register"
+else
+  node "$CLONE_DIR/scripts/self-update.js" --register || echo "Weekly updates could not be scheduled. Try later: node \"$CLONE_DIR/scripts/self-update.js\" --register"
+fi
