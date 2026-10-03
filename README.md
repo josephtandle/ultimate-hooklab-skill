@@ -1,6 +1,6 @@
 # Ultimate HookLab Skill
 
-A Claude Code skill that generates scored Instagram Reel hooks — either reverse engineered from top posts in your niche, or built backwards from your CTA.
+A Claude Code skill that generates scored Instagram Reel hooks: either reverse engineered from top posts in your niche, or built backwards from your CTA.
 
 Built for creators who want hooks that actually convert, not content that just gets views.
 
@@ -95,4 +95,8 @@ After 8 weeks you'll know which hook category outperforms for your specific audi
 
 ## Built by
 
-Mastermind HQ — [mastermindshq.business](https://mastermindshq.business)
+Mastermind HQ: [mastermindshq.business](https://mastermindshq.business)
+
+## Licence
+
+All Sorted Personal Use License: use it for yourself, never sell or redistribute it. See LICENSE.

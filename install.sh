@@ -76,7 +76,7 @@ if command -v npm &>/dev/null; then
   "version": "1.0.0",
   "private": true,
   "description": "Local dependencies for the Ultimate HookLab skill.",
-  "license": "MIT"
+  "license": "SEE LICENSE IN LICENSE"
 }
 JSON
   fi
