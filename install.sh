@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Ultimate HookLab Skill — one-shot installer
+# Ultimate HookLab Skill: one-shot installer
 # Usage: curl -fsSL https://raw.githubusercontent.com/josephtandle/ultimate-hooklab-skill/main/install.sh | bash
 
 HOOKLAB_DIR="$HOME/.hooklab"
@@ -50,7 +50,7 @@ cp "$SRC/market-research.js"              "$HOOKLAB_DIR/"
 cp "$SRC/fetch-instagram-captions.py"     "$HOOKLAB_DIR/"
 chmod +x "$HOOKLAB_DIR/fetch-instagram-captions.py" 2>/dev/null || true
 
-# Personal templates — only if they don't already exist (never overwrite)
+# Personal templates: only if they don't already exist (never overwrite)
 for f in my-brand-voice.md this-week.md my-hooks-log.md research-accounts.md; do
   if [ ! -f "$HOOKLAB_DIR/personal/$f" ]; then
     cp "$SRC/personal/$f" "$HOOKLAB_DIR/personal/$f"
